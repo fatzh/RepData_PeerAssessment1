@@ -31,7 +31,7 @@ library(dplyr)
 dd <- d %>% filter(!is.na(steps))
 ```
 
-1. I calculate the total number of steps taken per day.
+- I calculate the total number of steps taken per day.
 
 ```{r}
 steps_by_day <- dd %>% 
@@ -39,7 +39,7 @@ steps_by_day <- dd %>%
     summarise(total_steps = sum(steps))
 ```
 
-2. I build an histogram of the total number of steps taken each day, using the `ggplot2` library. *Note : This is an histogram, not a barplot. As per my understanding, I'm showing how often the individual walks a certain number of steps (see this [Coursera forum thread](https://class.coursera.org/repdata-031/forum/thread?thread_id=21) for the difference.)*
+- I build an histogram of the total number of steps taken each day, using the `ggplot2` library. *Note : This is an histogram, not a barplot. As per my understanding, I'm showing how often the individual walks a certain number of steps (see this [Coursera forum thread](https://class.coursera.org/repdata-031/forum/thread?thread_id=21) for the difference.)*
 
 ```{r steps_by_day, fig.width=12, fig.height=10}
 library(ggplot2)
@@ -49,7 +49,7 @@ ggplot(data=steps_by_day, aes(x=total_steps)) +
     ylab("Frequency")
 ```
 
-3. I then calculate and report the mean and median of the total number of steps taken each day.
+- I then calculate and report the mean and median of the total number of steps taken each day.
 
 Here is the mean :
 
@@ -65,7 +65,7 @@ median(steps_by_day$total_steps)
 
 ## What is the average daily activity pattern?
 
-1. I make a time series plot of the 5 minute interval and the average number of steps taken, averaged across all days.
+- I make a time series plot of the 5 minute interval and the average number of steps taken, averaged across all days.
 
 ```{r steps_by_interval}
 steps_by_interval <- dd %>% 
@@ -80,7 +80,7 @@ ggplot(data=steps_by_interval, aes(x=interval, y=total)) +
     ylab("Average number of steps")
 ```
 
-2. I calculate which 5-minute interval, on average across al the days in the dataset, contains the maximum number of steps.
+- I calculate which 5-minute interval, on average across al the days in the dataset, contains the maximum number of steps.
 
 ```{r max}
 top_n(steps_by_interval, 1, total)
@@ -92,7 +92,7 @@ The maximal average number of steps (`206.1698`) is taken at 8:35 (interval `835
 
 Note that there are a number of days/intervals where there are missing values (coded as `NA`). The presence of missing days may introduce bias into some calculations or summaries of the data.
 
-1. I calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+- I calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```{r}
 d %>%
@@ -102,7 +102,7 @@ d %>%
 
 There are `2304` missing values in the dataset.
 
-2. I'm going to replace the missing values with the mean for this interval using the `steps_by_interval` dataframe computed earlier.
+- I'm going to replace the missing values with the mean for this interval using the `steps_by_interval` dataframe computed earlier.
 
 ```{r}
 dd <- d %>%
@@ -110,7 +110,7 @@ dd <- d %>%
     mutate(steps = replace(steps, is.na(steps), steps_by_interval$total[steps_by_interval$interval == interval]))
 ```
 
-3. I then make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. 
+- I then make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. 
 
 ```{r}
 new_steps_by_day <- dd %>% 
@@ -140,7 +140,7 @@ As we can see, the impact of imputing missing data on the etimate is really smal
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-1. I create a new factor variable in the dataset that I will call `daytype` with two levels – `weekday` and `weekend` indicating whether a given date is a weekday or weekend day.
+- I create a new factor variable in the dataset that I will call `daytype` with two levels – `weekday` and `weekend` indicating whether a given date is a weekday or weekend day.
 
 ```{r}
 dd <- dd %>%
